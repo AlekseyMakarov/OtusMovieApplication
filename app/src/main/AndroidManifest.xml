@@ -20,7 +20,9 @@
             android:name=".MovieDetails"
             android:exported="false"
             android:label="@string/title_activity_movie_details"
-            android:theme="@style/Theme.OtusAlekseyMakarovMovies.NoActionBar" />
+            android:theme="@style/Theme.OtusAlekseyMakarovMovies.NoActionBar"
+            android:launchMode="standard">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

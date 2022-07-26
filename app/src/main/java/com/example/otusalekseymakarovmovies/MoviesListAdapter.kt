@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import coil.load
+import coil.transform.BlurTransformation
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.example.otusalekseymakarovmovies.data.features.movies.MoviesDataSourceImpl
 
@@ -21,10 +22,12 @@ class MoviesListAdapter() : BaseAdapter() {
     private val moviesList: List<MovieDto> = MoviesDataSourceImpl().getMovies()
     private var ctx: Context? = null
     private var lInflater: LayoutInflater? = null
+    private var callback: ((MovieDto)->Unit)? = null
 
 
-    constructor(ctx: Context):this(){
+    constructor(ctx: Context, callback: ((MovieDto)->Unit) ):this(){
         this.ctx = ctx
+        this.callback = callback
         lInflater = ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
     }
 
@@ -64,6 +67,7 @@ class MoviesListAdapter() : BaseAdapter() {
         // и картинка
         (itemView?.findViewById(R.id.roundedImageViewMovie) as ImageView).load(movieItem.imageUrl){
             allowHardware(false)
+            transformations(BlurTransformation(ctx!!, 20f))
         }
         (itemView.findViewById(R.id.textViewMovieTitle) as TextView).text = movieItem.title
 
@@ -76,6 +80,7 @@ class MoviesListAdapter() : BaseAdapter() {
                 Log.i("LESHA", Color.parseColor("blue").toString())
                 setTextColor(Color.parseColor("blue"))
             }
+        callback?.let { itemView.setOnClickListener { it(movieItem) } }
         return itemView
     }
 
