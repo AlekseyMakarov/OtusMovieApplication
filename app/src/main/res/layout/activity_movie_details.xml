@@ -4,6 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--        -->
+<!--        -->
+<!--        -->
+<!--    </FrameLayout>-->
 
     <ImageView
         android:id="@+id/movie_details_background"
@@ -16,7 +23,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/movie_image"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
 
-    <include layout="@layout/bottomsheet_movie_details" />
+        android:layout_marginHorizontal="30dp"
+        />
+
+    <include layout="@layout/bottomsheet_movie_details"
+        android:id="@+id/included_bottomsheet"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
