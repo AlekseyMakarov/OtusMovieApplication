@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/bg_text_view_age_restrictions.xml" value="0.1285" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/ic_star.xml" value="0.1745" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/ic_star_empty.xml" value="0.1745" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/ratingbar_custom.xml" value="0.1745" />
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/activity_main.xml" value="0.12590579710144928" />
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/activity_movie_details.xml" value="0.4" />
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/bottomsheet_movie_details.xml" value="0.22780797101449277" />
