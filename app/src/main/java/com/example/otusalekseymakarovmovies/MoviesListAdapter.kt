@@ -67,7 +67,6 @@ class MoviesListAdapter() : BaseAdapter() {
         // и картинка
         (itemView?.findViewById(R.id.roundedImageViewMovie) as ImageView).load(movieItem.imageUrl){
             allowHardware(false)
-            transformations(BlurTransformation(ctx!!, 20f))
         }
         (itemView.findViewById(R.id.textViewMovieTitle) as TextView).text = movieItem.title
 

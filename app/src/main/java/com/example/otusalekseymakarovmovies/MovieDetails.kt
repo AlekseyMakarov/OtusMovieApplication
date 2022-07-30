@@ -1,6 +1,7 @@
 package com.example.otusalekseymakarovmovies
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
@@ -51,6 +52,12 @@ class MovieDetails : AppCompatActivity() {
 //        = intent.getIntExtra("AgeRestriction", 0).toFloat()
         findViewById<ImageView>(R.id.movie_image).load(imageUrl){
             allowHardware(false)
+        }
+        findViewById<ImageView>(R.id.share_movie).setOnClickListener{
+            startActivity(
+                Intent(Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(Intent.EXTRA_TEXT, "Привет, давай посмотрим фильм ${intent.getStringExtra("Title")}!"))
         }
 
 
