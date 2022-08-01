@@ -18,27 +18,17 @@ import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.example.otusalekseymakarovmovies.data.features.movies.MoviesDataSourceImpl
 
 
-class MoviesListAdapter(ctx: Context, callback: ((MovieDto,Int,View) -> Unit), selectedItem: Int?) : BaseAdapter() {
-    private val ctx: Context = ctx
+class MoviesListAdapter(
+    private val ctx: Context, private var callback: ((MovieDto, Int, View) -> Unit),
+    var selectedItem: Int?
+) : BaseAdapter() {
     private val moviesList: List<MovieDto> = MoviesDataSourceImpl().getMovies()
     private var lInflater: LayoutInflater? = null
-    private var callback: ((MovieDto,Int,View)->Unit)? = callback
-    var selectedItem: Int? = selectedItem
-
 
 
     init {
         lInflater = ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
     }
-
-//    fun MoviesListAdapter(context: Context, products: ArrayList<Product?>) {
-//        ctx = context
-//        objects = products
-//        lInflater = ctx
-//            .getSystemService(Context.LAYOUT_INFLATER_SERVICE)
-//    }
-
-
     override fun getCount(): Int {
         return moviesList.size
     }
@@ -52,8 +42,6 @@ class MoviesListAdapter(ctx: Context, callback: ((MovieDto,Int,View) -> Unit), s
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-
-
         var itemView: View? = p1
         itemView = lInflater?.inflate(R.layout.movie_item, p2, false)
 
@@ -75,7 +63,7 @@ class MoviesListAdapter(ctx: Context, callback: ((MovieDto,Int,View) -> Unit), s
                 val ageRestrict= "${movieItem.ageRestriction}+"
                 text = ageRestrict
             }
-        callback?.let { itemView.setOnClickListener { it(movieItem, p0,itemView) } }
+        callback.let { itemView.setOnClickListener { it(movieItem, p0,itemView) } }
         return itemView
     }
 

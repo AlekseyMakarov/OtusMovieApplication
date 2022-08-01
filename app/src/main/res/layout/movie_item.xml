@@ -23,9 +23,7 @@
                 android:id="@+id/roundedImageViewMovie"
                 android:layout_width="match_parent"
                 android:layout_height="216dp"
-                android:scaleType="centerCrop"
-
-                android:src="@drawable/image_jason_statham" />
+                android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
 
         <TextView

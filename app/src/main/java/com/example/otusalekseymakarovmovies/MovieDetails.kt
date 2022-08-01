@@ -33,10 +33,7 @@ class MovieDetails : AppCompatActivity() {
         if (scaledRatingDrawable == null) {
             scaledRatingDrawable = createScaledRatingDrawable(this)
         }
-
-        val title = intent.getStringExtra("Title")
         val imageUrl = intent.getStringExtra("ImageUrl")
-        Log.i("HELLL", title!!)
         findViewById<ImageView>(R.id.movie_details_background)
             .load(imageUrl){
             allowHardware(false)
@@ -49,7 +46,6 @@ class MovieDetails : AppCompatActivity() {
             setProgressDrawableTiled(scaledRatingDrawable)
             rating = intent.getIntExtra("RateScore", 0).toFloat()
         }
-//        = intent.getIntExtra("AgeRestriction", 0).toFloat()
         findViewById<ImageView>(R.id.movie_image).load(imageUrl){
             allowHardware(false)
         }
@@ -59,12 +55,9 @@ class MovieDetails : AppCompatActivity() {
                     .setType("text/plain")
                     .putExtra(Intent.EXTRA_TEXT, "Привет, давай посмотрим фильм ${intent.getStringExtra("Title")}!"))
         }
-
-
     }
 
     private fun createScaledRatingDrawable(context: Context): Drawable {
-
         val starEmptyBitmap = AppCompatResources.getDrawable(context, R.drawable.ic_star_empty)
             ?.toBitmap(context.dpToPx(15F), context.dpToPx(15F))
         val starBitmap = AppCompatResources.getDrawable(context, R.drawable.ic_star)
