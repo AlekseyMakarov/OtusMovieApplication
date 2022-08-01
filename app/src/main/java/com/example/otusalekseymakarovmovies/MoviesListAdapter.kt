@@ -18,16 +18,16 @@ import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.example.otusalekseymakarovmovies.data.features.movies.MoviesDataSourceImpl
 
 
-class MoviesListAdapter() : BaseAdapter() {
+class MoviesListAdapter(ctx: Context, callback: ((MovieDto,Int,View) -> Unit), selectedItem: Int?) : BaseAdapter() {
+    private val ctx: Context = ctx
     private val moviesList: List<MovieDto> = MoviesDataSourceImpl().getMovies()
-    private var ctx: Context? = null
     private var lInflater: LayoutInflater? = null
-    private var callback: ((MovieDto)->Unit)? = null
+    private var callback: ((MovieDto,Int,View)->Unit)? = callback
+    var selectedItem: Int? = selectedItem
 
 
-    constructor(ctx: Context, callback: ((MovieDto)->Unit) ):this(){
-        this.ctx = ctx
-        this.callback = callback
+
+    init {
         lInflater = ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
     }
 
@@ -55,31 +55,27 @@ class MoviesListAdapter() : BaseAdapter() {
 
 
         var itemView: View? = p1
-        itemView = itemView?: lInflater?.inflate(R.layout.movie_item, p2, false)
-
+        itemView = lInflater?.inflate(R.layout.movie_item, p2, false)
 
         val movieItem: MovieDto = moviesList[p0]
-
-        // заполняем View в пункте списка данными из товаров: наименование, цена
-        // и картинка
-
-        // заполняем View в пункте списка данными из товаров: наименование, цена
-        // и картинка
         (itemView?.findViewById(R.id.roundedImageViewMovie) as ImageView).load(movieItem.imageUrl){
             allowHardware(false)
         }
         (itemView.findViewById(R.id.textViewMovieTitle) as TextView).text = movieItem.title
 
-        (itemView.findViewById(R.id.textViewMovieDescription) as TextView).text = movieItem.description
+        (itemView.findViewById(R.id.textViewMovieDescription) as TextView)
+            .apply{
+                text = movieItem.description
+                if (p0 == selectedItem)
+                    setTextColor(ctx.getColor(R.color.purple_500))
+        }
         (itemView.findViewById(R.id.ratingBarMovieRating) as RatingBar).rating=movieItem.rateScore.toFloat()
         (itemView.findViewById(R.id.textViewMovieAgeRestrictions) as TextView)
             .apply {
                 val ageRestrict= "${movieItem.ageRestriction}+"
                 text = ageRestrict
-                Log.i("LESHA", Color.parseColor("blue").toString())
-                setTextColor(Color.parseColor("blue"))
             }
-        callback?.let { itemView.setOnClickListener { it(movieItem) } }
+        callback?.let { itemView.setOnClickListener { it(movieItem, p0,itemView) } }
         return itemView
     }
 
