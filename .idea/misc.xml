@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/bg_text_view_age_restrictions.xml" value="0.1" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/movie_item.xml" value="0.12360688956433637" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

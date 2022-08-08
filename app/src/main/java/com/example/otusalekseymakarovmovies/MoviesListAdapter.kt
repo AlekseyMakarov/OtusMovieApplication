@@ -21,7 +21,9 @@ import com.example.otusalekseymakarovmovies.data.features.movies.MoviesDataSourc
 
 
 class MoviesListAdapter(
-    private val callback: (MovieDto, Int) -> Unit, private val moviesList: List<MovieDto>
+    private val callback: (MovieDto, Int) -> Unit,
+    private val moviesList: List<MovieDto>,
+    private val favoriteCallback: (Int) -> Unit
 ) : RecyclerView.Adapter<MoviesListAdapter.ViewHolder>() {
 
     private var scaledRatingDrawable: Drawable? = null
@@ -43,11 +45,13 @@ class MoviesListAdapter(
         private val movieRating: RatingBar = itemView.findViewById(R.id.ratingBarMovieRating)
         private val movieAgeRestriction: TextView =
             itemView.findViewById(R.id.textViewMovieAgeRestrictions)
+        private val favorite: ImageView = itemView.findViewById(R.id.favorite)
 
         fun bind(
             movie: MovieDto,
             callback: ((MovieDto, Int) -> Unit)?,
             selectedItem: Int,
+            favoriteCallback: (Int) -> Unit
         ) {
             movieImage.load(movie.imageUrl) {
                 allowHardware(false)
@@ -66,9 +70,17 @@ class MoviesListAdapter(
             }
             if (!movie.selected) movieDescription.setTextColor(itemView.context.getColor(R.color.black))
             else movieDescription.setTextColor(itemView.context.getColor(R.color.purple_500))
+
+
+            favorite.setOnClickListener { favoriteCallback(selectedItem) }
+            if (movie.favourite) favorite.apply {
+                setColorFilter(itemView.context.getColor(R.color.favorite))
+                setImageResource(R.drawable.ic_baseline_favorite_24)
+            } else favorite.apply {
+                setColorFilter(itemView.context.getColor(R.color.white))
+                setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -90,7 +102,7 @@ class MoviesListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position).let { holder.bind(it, callback, position) }
+        getItem(position).let { holder.bind(it, callback, position, favoriteCallback) }
         Log.i("onBindViewHolder", position.toString())
     }
 

@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         else null
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.ListViewMovies)
-        val moviesListAdapter = MoviesListAdapter(::ShowDetails, movies)
+        val moviesListAdapter = MoviesListAdapter(::ShowDetails, movies, ::addToFavorite)
 
         listView.adapter = moviesListAdapter
         listView.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
@@ -72,5 +72,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    fun addToFavorite(selectedItem: Int) {
+        movies[selectedItem] = movies[selectedItem].run {
+            MovieDto(
+                title,
+                description,
+                rateScore,
+                ageRestriction,
+                imageUrl,
+                selected,
+                !favourite
+            )
+        }
+        (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(selectedItem)
+    }
 }
