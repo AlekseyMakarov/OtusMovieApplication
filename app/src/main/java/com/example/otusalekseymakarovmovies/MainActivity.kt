@@ -8,29 +8,41 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.example.otusalekseymakarovmovies.data.features.movies.MoviesDataSourceImpl
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+object MoviesList{
+    val movies: MutableList<MovieDto> = MoviesDataSourceImpl().getMovies().toMutableList()
+    var selectedItem: Int? = null
+    var previousSelectedItem: Int? = null
+    val favoriteMovies = mutableListOf<MovieDto>()
+}
+
+open class MainActivity : AppCompatActivity() {
     lateinit var listView: RecyclerView
-    private var selectedItem: Int? = null
-    private var previousSelectedItem: Int? = null
-    private val movies: MutableList<MovieDto> = MoviesDataSourceImpl().getMovies().toMutableList()
+    open val moviesListActivity = MoviesList.movies
+    //private var selectedItem: Int? = null
+    //private var previousSelectedItem: Int? = null
+    //private val movies: MutableList<MovieDto> = MoviesDataSourceImpl().getMovies().toMutableList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        selectedItem = if (savedInstanceState?.containsKey("SelectedItem") == true)
+        MoviesList.selectedItem = if (savedInstanceState?.containsKey("SelectedItem") == true)
             savedInstanceState.getInt("SelectedItem")
         else null
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.ListViewMovies)
-        val moviesListAdapter = MoviesListAdapter(::ShowDetails, movies, ::addToFavorite)
-
+        val moviesListAdapter = MoviesListAdapter(::ShowDetails, moviesListActivity, ::addToFavorite)
         listView.adapter = moviesListAdapter
         listView.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
         listView.addItemDecoration(RecyclerDecoration)
+        findFavoriteFAB().setOnClickListener{startActivity(
+            Intent(this, FavoriteMoviesActivity::class.java))}
     }
+
+    fun findFavoriteFAB() = findViewById<FloatingActionButton>(R.id.fab)
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        selectedItem?.let { outState.putInt("SelectedItem", it) }
+        MoviesList.selectedItem?.let { outState.putInt("SelectedItem", it) }
     }
 
     fun ShowDetails(movieDto: MovieDto, selectedItem: Int) {
@@ -43,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 .putExtra("RateScore", movieDto.rateScore)
         )
 
-        movies[selectedItem] = movies[selectedItem].run {
+        MoviesList.movies[selectedItem] = MoviesList.movies[selectedItem].run {
             MovieDto(
                 title,
                 description,
@@ -54,11 +66,11 @@ class MainActivity : AppCompatActivity() {
             )
         }
         (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(selectedItem)
-        this.selectedItem?.let { previousSelectedItem = this.selectedItem }
-        val previousSelectedItem = this.previousSelectedItem
-        this.selectedItem = selectedItem
+        MoviesList.selectedItem?.let { MoviesList.previousSelectedItem = MoviesList.selectedItem }
+        val previousSelectedItem = MoviesList.previousSelectedItem
+        MoviesList.selectedItem = selectedItem
         if (previousSelectedItem != null && previousSelectedItem != selectedItem) {
-            movies[previousSelectedItem] = movies[previousSelectedItem].run {
+            MoviesList.movies[previousSelectedItem] = MoviesList.movies[previousSelectedItem].run {
                 MovieDto(
                     title,
                     description,
@@ -68,12 +80,14 @@ class MainActivity : AppCompatActivity() {
                     false
                 )
             }
-            (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(previousSelectedItem)
+            listView.adapter?.notifyItemChanged(previousSelectedItem)
         }
     }
 
-    fun addToFavorite(selectedItem: Int) {
-        movies[selectedItem] = movies[selectedItem].run {
+    open fun addToFavorite(selectedItem: Int) {
+        val buf = MoviesList.movies[selectedItem]
+
+        MoviesList.movies[selectedItem] = MoviesList.movies[selectedItem].run {
             MovieDto(
                 title,
                 description,
@@ -84,6 +98,19 @@ class MainActivity : AppCompatActivity() {
                 !favourite
             )
         }
-        (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(selectedItem)
+        when (MoviesList.movies[selectedItem].favourite){
+            true -> MoviesList.favoriteMovies.add(MoviesList.movies[selectedItem])
+            false -> MoviesList.favoriteMovies.remove(buf)
+
+        }
+
+
+
+
+
+
+
+        listView.adapter?.notifyDataSetChanged()
+        //listView.adapter?.notifyItemChanged(selectedItem)
     }
 }

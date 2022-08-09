@@ -2,6 +2,7 @@
     <string name="app_name">Otus Aleksey Makarov Movies</string>
     <string name="restriction_age">+18</string>
     <string name="title_activity_movie_details">MovieDetails</string>
+    <string name="title_activity_favorite_movies_activity">FavoriteMoviesActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
