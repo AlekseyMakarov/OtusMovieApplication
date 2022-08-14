@@ -1,6 +1,7 @@
 package com.example.otusalekseymakarovmovies
 
 import android.graphics.Rect
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.extensions.dpToPx
 
@@ -13,8 +14,15 @@ const val MARGIN_HORIZONTAL_BETWEEN = 10f
 const val NO_MARGIN = 0f
 
 object RecyclerDecoration : RecyclerView.ItemDecoration() {
-    override fun getItemOffsets(outRect: Rect, itemPosition: Int, parent: RecyclerView) {
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val parent_adapter = parent.adapter
+        val itemPosition = parent.getChildAdapterPosition(view)
         if (parent_adapter != null) {
             outRect.set(
                 if (itemPosition % 2 == 0) parent.dpToPx(MARGIN_LEFT) else parent.dpToPx(
@@ -35,7 +43,8 @@ object RecyclerDecoration : RecyclerView.ItemDecoration() {
                 }
             )
         } else {
-            super.getItemOffsets(outRect, itemPosition, parent)
+            super.getItemOffsets(outRect, view, parent, state)
         }
+
     }
 }

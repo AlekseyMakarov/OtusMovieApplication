@@ -62,7 +62,8 @@ open class MainActivity : AppCompatActivity() {
                 rateScore,
                 ageRestriction,
                 imageUrl,
-                true
+                true,
+                favourite
             )
         }
         (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(selectedItem)
@@ -77,7 +78,8 @@ open class MainActivity : AppCompatActivity() {
                     rateScore,
                     ageRestriction,
                     imageUrl,
-                    false
+                    false,
+                    favourite
                 )
             }
             listView.adapter?.notifyItemChanged(previousSelectedItem)

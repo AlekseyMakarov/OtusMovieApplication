@@ -36,19 +36,16 @@ class FavoriteMoviesActivity : MainActivity() {
                 )
             }
             when (MoviesList.movies[indexMovie].favourite) {
-                true -> MoviesList.favoriteMovies.add(MoviesList.movies[indexMovie])
-                false -> MoviesList.favoriteMovies.remove(buf)
+                true -> {
+                    MoviesList.favoriteMovies.add(MoviesList.movies[indexMovie])
+                    listView.adapter?.notifyItemInserted(selectedItem)
+
+                }
+                false -> {
+                    MoviesList.favoriteMovies.remove(buf)
+                    listView.adapter?.notifyItemRemoved(selectedItem)
+                }
             }
         }
-
-
-
-
-
-
-
-
-        listView.adapter?.notifyDataSetChanged()
-        //listView.adapter?.notifyItemChanged(selectedItem)
     }
 }

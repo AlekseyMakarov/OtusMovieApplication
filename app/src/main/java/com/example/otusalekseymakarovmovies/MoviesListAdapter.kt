@@ -1,23 +1,16 @@
 package com.example.otusalekseymakarovmovies
 
-import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.transform.BlurTransformation
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
-import com.example.otusalekseymakarovmovies.data.features.movies.MoviesDataSourceImpl
 
 
 class MoviesListAdapter(
@@ -50,7 +43,6 @@ class MoviesListAdapter(
         fun bind(
             movie: MovieDto,
             callback: ((MovieDto, Int) -> Unit)?,
-            selectedItem: Int,
             favoriteCallback: (Int) -> Unit
         ) {
             movieImage.load(movie.imageUrl) {
@@ -64,7 +56,7 @@ class MoviesListAdapter(
                 itemView.setOnClickListener {
                     callback(
                         movie,
-                        selectedItem
+                        layoutPosition
                     )
                 }
             }
@@ -72,7 +64,7 @@ class MoviesListAdapter(
             else movieDescription.setTextColor(itemView.context.getColor(R.color.purple_500))
 
 
-            favorite.setOnClickListener { favoriteCallback(selectedItem) }
+            favorite.setOnClickListener { favoriteCallback(layoutPosition) }
             if (movie.favourite) favorite.apply {
                 setColorFilter(itemView.context.getColor(R.color.favorite))
                 setImageResource(R.drawable.ic_baseline_favorite_24)
@@ -102,7 +94,7 @@ class MoviesListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position).let { holder.bind(it, callback, position, favoriteCallback) }
+        getItem(position).let { holder.bind(it, callback, favoriteCallback) }
         Log.i("onBindViewHolder", position.toString())
     }
 
