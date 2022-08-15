@@ -3,6 +3,7 @@ package com.example.otusalekseymakarovmovies
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,14 +21,8 @@ object MoviesList{
 open class MainActivity : AppCompatActivity() {
     lateinit var listView: RecyclerView
     open val moviesListActivity = MoviesList.movies
-    //private var selectedItem: Int? = null
-    //private var previousSelectedItem: Int? = null
-    //private val movies: MutableList<MovieDto> = MoviesDataSourceImpl().getMovies().toMutableList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MoviesList.selectedItem = if (savedInstanceState?.containsKey("SelectedItem") == true)
-            savedInstanceState.getInt("SelectedItem")
-        else null
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.ListViewMovies)
         val moviesListAdapter = MoviesListAdapter(::ShowDetails, moviesListActivity, ::addToFavorite)
@@ -38,14 +33,16 @@ open class MainActivity : AppCompatActivity() {
             Intent(this, FavoriteMoviesActivity::class.java))}
     }
 
-    fun findFavoriteFAB() = findViewById<FloatingActionButton>(R.id.fab)
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        MoviesList.selectedItem?.let { outState.putInt("SelectedItem", it) }
+    override fun onStart() {
+        super.onStart()
+        listView.adapter?.notifyDataSetChanged()
     }
 
-    fun ShowDetails(movieDto: MovieDto, selectedItem: Int) {
+    fun findFavoriteFAB() = findViewById<FloatingActionButton>(R.id.fab)
+
+
+    open fun ShowDetails(movieDto: MovieDto, selectedItem: Int) {
         startActivity(
             Intent(this, MovieDetails::class.java)
                 .putExtra("Description", movieDto.description)
@@ -105,14 +102,6 @@ open class MainActivity : AppCompatActivity() {
             false -> MoviesList.favoriteMovies.remove(buf)
 
         }
-
-
-
-
-
-
-
         listView.adapter?.notifyDataSetChanged()
-        //listView.adapter?.notifyItemChanged(selectedItem)
     }
 }
