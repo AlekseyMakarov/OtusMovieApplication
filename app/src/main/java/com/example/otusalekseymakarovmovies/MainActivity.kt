@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.example.otusalekseymakarovmovies.data.features.movies.MoviesDataSourceImpl
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.content.res.Configuration.ORIENTATION_PORTRAIT
+import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 
-object MoviesList{
+object MoviesList {
     val movies: MutableList<MovieDto> = MoviesDataSourceImpl().getMovies().toMutableList()
     var selectedItem: Int? = null
     var previousSelectedItem: Int? = null
@@ -25,12 +27,30 @@ open class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.ListViewMovies)
-        val moviesListAdapter = MoviesListAdapter(::ShowDetails, moviesListActivity, ::addToFavorite)
+        val moviesListAdapter =
+            MoviesListAdapter(::ShowDetails, moviesListActivity, ::addToFavorite)
         listView.adapter = moviesListAdapter
-        listView.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
-        listView.addItemDecoration(RecyclerDecoration)
-        findFavoriteFAB().setOnClickListener{startActivity(
-            Intent(this, FavoriteMoviesActivity::class.java))}
+        listView.layoutManager = when (this.resources.configuration.orientation) {
+            ORIENTATION_PORTRAIT -> GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
+            ORIENTATION_LANDSCAPE -> GridLayoutManager(this, 3, RecyclerView.VERTICAL, false)
+            else -> throw Exception("Can not get orientation")
+        }
+        listView.addItemDecoration(
+            when (this.resources.configuration.orientation) {
+                ORIENTATION_PORTRAIT -> RecyclerDecorationPortrait
+                ORIENTATION_LANDSCAPE -> RecyclerDecorationLandscape
+                else -> throw Exception("Can not get orientation")
+            }
+        )
+        findFavoriteFAB().setOnClickListener {
+            startActivity(
+                Intent(this, FavoriteMoviesActivity::class.java)
+            )
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
 
@@ -97,7 +117,7 @@ open class MainActivity : AppCompatActivity() {
                 !favourite
             )
         }
-        when (MoviesList.movies[selectedItem].favourite){
+        when (MoviesList.movies[selectedItem].favourite) {
             true -> MoviesList.favoriteMovies.add(MoviesList.movies[selectedItem])
             false -> MoviesList.favoriteMovies.remove(buf)
 
