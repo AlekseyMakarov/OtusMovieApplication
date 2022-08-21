@@ -3,8 +3,6 @@ package com.example.otusalekseymakarovmovies
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
@@ -17,18 +15,17 @@ object MoviesList {
     val movies: MutableList<MovieDto> = MoviesDataSourceImpl().getMovies().toMutableList()
     var selectedItem: Int? = null
     var previousSelectedItem: Int? = null
-    val favoriteMovies = mutableListOf<MovieDto>()
+    //val favoriteMovies = mutableListOf<MovieDto>()
 }
 
 open class MainActivity : AppCompatActivity() {
     lateinit var listView: RecyclerView
-    open val moviesListActivity = MoviesList.movies
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.ListViewMovies)
         val moviesListAdapter =
-            MoviesListAdapter(::ShowDetails, moviesListActivity, ::addToFavorite)
+            MoviesListAdapter(::showDetails, MoviesList.movies, ::addToFavorite)
         listView.adapter = moviesListAdapter
         listView.layoutManager = when (this.resources.configuration.orientation) {
             ORIENTATION_PORTRAIT -> GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
@@ -42,7 +39,7 @@ open class MainActivity : AppCompatActivity() {
                 else -> throw Exception("Can not get orientation")
             }
         )
-        findFavoriteFAB().setOnClickListener {
+        findFavoriteFAB()?.setOnClickListener {
             startActivity(
                 Intent(this, FavoriteMoviesActivity::class.java)
             )
@@ -59,10 +56,10 @@ open class MainActivity : AppCompatActivity() {
         listView.adapter?.notifyDataSetChanged()
     }
 
-    fun findFavoriteFAB() = findViewById<FloatingActionButton>(R.id.fab)
+    private fun findFavoriteFAB(): FloatingActionButton? = findViewById<FloatingActionButton>(R.id.fab)
 
 
-    open fun ShowDetails(movieDto: MovieDto, selectedItem: Int) {
+    open fun showDetails(movieDto: MovieDto, selectedItem: Int) {
         startActivity(
             Intent(this, MovieDetails::class.java)
                 .putExtra("Description", movieDto.description)
@@ -104,8 +101,6 @@ open class MainActivity : AppCompatActivity() {
     }
 
     open fun addToFavorite(selectedItem: Int) {
-        val buf = MoviesList.movies[selectedItem]
-
         MoviesList.movies[selectedItem] = MoviesList.movies[selectedItem].run {
             MovieDto(
                 title,
@@ -117,11 +112,6 @@ open class MainActivity : AppCompatActivity() {
                 !favourite
             )
         }
-        when (MoviesList.movies[selectedItem].favourite) {
-            true -> MoviesList.favoriteMovies.add(MoviesList.movies[selectedItem])
-            false -> MoviesList.favoriteMovies.remove(buf)
-
-        }
-        listView.adapter?.notifyDataSetChanged()
+        listView.adapter?.notifyItemChanged(selectedItem)
     }
 }

@@ -1,21 +1,57 @@
 package com.example.otusalekseymakarovmovies
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View.GONE
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class FavoriteMoviesActivity : MainActivity() {
-    override val moviesListActivity: MutableList<MovieDto> =
-        MoviesList.movies.filter { it.favourite }.toMutableList()
+class FavoriteMoviesActivity : AppCompatActivity() {
+    lateinit var listView: RecyclerView
+    private val moviesListActivity = MoviesList.movies.filter { it.favourite }.toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        findFavoriteFAB().visibility = GONE
+        setContentView(R.layout.activity_main)
+        listView = findViewById(R.id.ListViewMovies)
+        val moviesListAdapter =
+            MoviesListAdapter(::showDetails, moviesListActivity, ::addToFavorite)
+        listView.adapter = moviesListAdapter
+        listView.layoutManager = when (this.resources.configuration.orientation) {
+            Configuration.ORIENTATION_PORTRAIT -> GridLayoutManager(
+                this,
+                2,
+                RecyclerView.VERTICAL,
+                false
+            )
+            Configuration.ORIENTATION_LANDSCAPE -> GridLayoutManager(
+                this,
+                3,
+                RecyclerView.VERTICAL,
+                false
+            )
+            else -> throw Exception("Can not get orientation")
+        }
+        listView.addItemDecoration(
+            when (this.resources.configuration.orientation) {
+                Configuration.ORIENTATION_PORTRAIT -> RecyclerDecorationPortrait
+                Configuration.ORIENTATION_LANDSCAPE -> RecyclerDecorationLandscape
+                else -> throw Exception("Can not get orientation")
+            }
+        )
+        findFavoriteFAB()?.visibility = GONE
+
     }
 
-    override fun addToFavorite(selectedItem: Int) {
+    private fun findFavoriteFAB(): FloatingActionButton? =
+        findViewById(R.id.fab)
+
+    private fun addToFavorite(selectedItem: Int) {
         val buf = moviesListActivity[selectedItem]
         val indexMovie = MoviesList.movies.withIndex().find { it.value == buf }?.index
 
@@ -37,7 +73,6 @@ class FavoriteMoviesActivity : MainActivity() {
                         "FavoriteMoviesActivity",
                         "In this activity movies can only become unfavorite"
                     )
-
                 }
                 false -> {
                     moviesListActivity.remove(buf)
@@ -45,11 +80,9 @@ class FavoriteMoviesActivity : MainActivity() {
                 }
             }
         }
-
-
     }
 
-    override fun ShowDetails(movieDto: MovieDto, selectedItem: Int) {
+    private fun showDetails(movieDto: MovieDto, selectedItem: Int) {
         val buf = moviesListActivity[selectedItem]
         val indexMovie = MoviesList.movies.withIndex().find { it.value == buf }?.index
         startActivity(
@@ -63,25 +96,28 @@ class FavoriteMoviesActivity : MainActivity() {
         indexMovie?.let {
             selectInMainActivity(it)
 
-            MoviesList.selectedItem?.let { MoviesList.previousSelectedItem = MoviesList.selectedItem }
+            MoviesList.selectedItem?.let {
+                MoviesList.previousSelectedItem = MoviesList.selectedItem
+            }
             val previousSelectedItem = MoviesList.previousSelectedItem
             MoviesList.selectedItem = indexMovie
 
-            MoviesList.previousSelectedItem?.let { it1 ->
+            MoviesList.previousSelectedItem?.let { previousSelectedInMain ->
                 val previousSelectedInFavorite = moviesListActivity.withIndex()
-                    .find { it2 -> it2.value == MoviesList.movies[it1] }?.index
+                    .find { itemInFavoriteList -> itemInFavoriteList.value == MoviesList.movies[previousSelectedInMain] }?.index
                 if (previousSelectedInFavorite != null && previousSelectedInFavorite != selectedItem) {
-                    moviesListActivity[previousSelectedInFavorite] = moviesListActivity[previousSelectedInFavorite].run {
-                        MovieDto(
-                            title,
-                            description,
-                            rateScore,
-                            ageRestriction,
-                            imageUrl,
-                            false,
-                            favourite
-                        )
-                    }
+                    moviesListActivity[previousSelectedInFavorite] =
+                        moviesListActivity[previousSelectedInFavorite].run {
+                            MovieDto(
+                                title,
+                                description,
+                                rateScore,
+                                ageRestriction,
+                                imageUrl,
+                                false,
+                                favourite
+                            )
+                        }
                     (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(
                         previousSelectedInFavorite
                     )
