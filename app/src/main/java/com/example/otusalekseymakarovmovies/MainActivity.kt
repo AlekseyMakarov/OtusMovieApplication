@@ -15,10 +15,9 @@ object MoviesList {
     val movies: MutableList<MovieDto> = MoviesDataSourceImpl().getMovies().toMutableList()
     var selectedItem: Int? = null
     var previousSelectedItem: Int? = null
-    //val favoriteMovies = mutableListOf<MovieDto>()
 }
 
-open class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity(), OnCustomDialogDismissClickListener {
     lateinit var listView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +46,8 @@ open class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        CustomDialog().show(supportFragmentManager, "dialog")
+
     }
 
 
@@ -56,7 +56,7 @@ open class MainActivity : AppCompatActivity() {
         listView.adapter?.notifyDataSetChanged()
     }
 
-    private fun findFavoriteFAB(): FloatingActionButton? = findViewById<FloatingActionButton>(R.id.fab)
+    private fun findFavoriteFAB(): FloatingActionButton? = findViewById(R.id.fab)
 
 
     open fun showDetails(movieDto: MovieDto, selectedItem: Int) {
@@ -113,5 +113,9 @@ open class MainActivity : AppCompatActivity() {
             )
         }
         listView.adapter?.notifyItemChanged(selectedItem)
+    }
+
+    override fun onClickDismiss() {
+       super.onBackPressed()
     }
 }

@@ -43,12 +43,10 @@ class MovieDetails : AppCompatActivity() {
                     .setType("text/plain")
                     .putExtra(
                         Intent.EXTRA_TEXT,
-                        "Привет, давай посмотрим фильм ${intent.getStringExtra("Title")}!"
+                        getString(R.string.share_text_activity_movie_details) + intent.getStringExtra("Title") + "!"
                     )
             )
         }
     }
-
-
 }
 
