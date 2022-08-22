@@ -84,7 +84,7 @@ class FavoriteMoviesActivity : AppCompatActivity() {
 
     private fun showDetails(movieDto: MovieDto, selectedItem: Int) {
         val buf = moviesListActivity[selectedItem]
-        val indexMovie = MoviesList.movies.withIndex().find { it.value == buf }?.index
+        val selectedInMain = MoviesList.movies.withIndex().find { it.value == buf }?.index
         startActivity(
             Intent(this, MovieDetails::class.java)
                 .putExtra("Description", movieDto.description)
@@ -93,37 +93,16 @@ class FavoriteMoviesActivity : AppCompatActivity() {
                 .putExtra("AgeRestriction", movieDto.ageRestriction)
                 .putExtra("RateScore", movieDto.rateScore)
         )
-        indexMovie?.let {
+        selectedInMain?.let {
             selectInMainActivity(it)
 
             MoviesList.selectedItem?.let {
                 MoviesList.previousSelectedItem = MoviesList.selectedItem
             }
-            val previousSelectedItem = MoviesList.previousSelectedItem
-            MoviesList.selectedItem = indexMovie
+            MoviesList.selectedItem = it
 
-            MoviesList.previousSelectedItem?.let { previousSelectedInMain ->
-                val previousSelectedInFavorite = moviesListActivity.withIndex()
-                    .find { itemInFavoriteList -> itemInFavoriteList.value == MoviesList.movies[previousSelectedInMain] }?.index
-                if (previousSelectedInFavorite != null && previousSelectedInFavorite != selectedItem) {
-                    moviesListActivity[previousSelectedInFavorite] =
-                        moviesListActivity[previousSelectedInFavorite].run {
-                            MovieDto(
-                                title,
-                                description,
-                                rateScore,
-                                ageRestriction,
-                                imageUrl,
-                                false,
-                                favourite
-                            )
-                        }
-                    (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(
-                        previousSelectedInFavorite
-                    )
-                }
-            }
-            unselectPreviousInMainActivity(it, previousSelectedItem)
+            unselectPreviousInFavorite(selectedItem)
+            unselectPreviousInMainActivity(it)
         }
 
         moviesListActivity[selectedItem] = moviesListActivity[selectedItem].run {
@@ -139,36 +118,60 @@ class FavoriteMoviesActivity : AppCompatActivity() {
         }
         (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(selectedItem)
     }
-}
-
-
-fun selectInMainActivity(selectedItem: Int) {
-
-    MoviesList.movies[selectedItem] = MoviesList.movies[selectedItem].run {
-        MovieDto(
-            title,
-            description,
-            rateScore,
-            ageRestriction,
-            imageUrl,
-            true,
-            favourite
-        )
-    }
-}
-
-fun unselectPreviousInMainActivity(selectedItem: Int, previousSelectedItem: Int?) {
-    if ((previousSelectedItem != null) && (previousSelectedItem != selectedItem)) {
-        MoviesList.movies[previousSelectedItem] = MoviesList.movies[previousSelectedItem].run {
+    private fun selectInMainActivity(selectedItem: Int) {
+        MoviesList.movies[selectedItem] = MoviesList.movies[selectedItem].run {
             MovieDto(
                 title,
                 description,
                 rateScore,
                 ageRestriction,
                 imageUrl,
-                false,
+                true,
                 favourite
             )
         }
     }
+
+    private fun unselectPreviousInMainActivity(selectedItem: Int) {
+        val previousSelectedItem = MoviesList.previousSelectedItem
+        if ((previousSelectedItem != null) && (previousSelectedItem != selectedItem)) {
+            MoviesList.movies[previousSelectedItem] = MoviesList.movies[previousSelectedItem].run {
+                MovieDto(
+                    title,
+                    description,
+                    rateScore,
+                    ageRestriction,
+                    imageUrl,
+                    false,
+                    favourite
+                )
+            }
+        }
+    }
+
+    private fun unselectPreviousInFavorite(selectedItem: Int){
+        MoviesList.previousSelectedItem?.let { previousSelectedInMain ->
+            val previousSelectedInFavorite = moviesListActivity.withIndex()
+                .find { itemInFavoriteList -> itemInFavoriteList.value == MoviesList.movies[previousSelectedInMain] }?.index
+            if (previousSelectedInFavorite != null && previousSelectedInFavorite != selectedItem) {
+                moviesListActivity[previousSelectedInFavorite] =
+                    moviesListActivity[previousSelectedInFavorite].run {
+                        MovieDto(
+                            title,
+                            description,
+                            rateScore,
+                            ageRestriction,
+                            imageUrl,
+                            false,
+                            favourite
+                        )
+                    }
+                (listView.adapter as? MoviesListAdapter)?.notifyItemChanged(
+                    previousSelectedInFavorite
+                )
+            }
+        }
+    }
 }
+
+
