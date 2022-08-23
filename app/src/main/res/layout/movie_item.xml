@@ -24,7 +24,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="216dp"
                 android:scaleType="centerCrop" />
+
         </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/favorite"
+
+            android:padding="10dp"
+            android:translationZ="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/cardView"
+            app:layout_constraintEnd_toEndOf="@id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/textViewMovieTitle"

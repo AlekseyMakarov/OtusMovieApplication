@@ -16,10 +16,12 @@
     <string name="film_description">Description</string>
     <string name="film_name">Film name</string>
     <string name="film_genre">Film genre</string>
-    <string name="film_date">Film release date</string>
-    <string name="quit_dialog_text">Are you sure you want to exit?</string>
-    <string name="dialog_OK">OK</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_quit">Exit</string>
-    <string name="share_text_activity_movie_details">"Hey, let's watch the movie "</string>
+    <string name="film_date">Дата релиза</string>
+
+    <string name="quit_dialog_text">Вы уверены, что хотите выйти?</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_OK">ОК</string>
+    <string name="dialog_quit">Выйти</string>
+    <string name="share_text_activity_movie_details">"Привет, давай посмотрим фильм "</string>
+
 </resources>
