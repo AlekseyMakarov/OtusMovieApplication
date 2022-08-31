@@ -1,0 +1,49 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="Movies" />
+        <item
+            android:id="@+id/movies_favorite"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="Favorite" />
+<!--        <item-->
+<!--            android:id="@+id/nav_slideshow"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="@string/menu_slideshow" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_tools"-->
+<!--            android:icon="@android:drawable/ic_menu_manage"-->
+<!--            android:title="@string/menu_tools" />-->
+<!--        <menu>-->
+<!--            <item-->
+<!--                android:id="@+id/nav_gallery2"-->
+<!--                android:checked="true"-->
+<!--                android:icon="@drawable/ic_menu_gallery"-->
+<!--                android:title="Gallery2"-->
+<!--                app:actionViewClass="android.widget.TextView" />-->
+<!--        </menu>-->
+    </group>
+
+<!--    <item android:title="Communicate">-->
+<!--        <menu>-->
+<!--            <item-->
+<!--                android:id="@+id/nav_share"-->
+<!--                android:icon="@android:drawable/ic_menu_share"-->
+<!--                app:actionViewClass="android.widget.TextView"-->
+<!--                android:title="@string/menu_share" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_send"-->
+<!--                android:icon="@android:drawable/ic_menu_send"-->
+<!--                android:title="@string/menu_send" />-->
+<!--        </menu>-->
+<!--    </item>-->
+
+</menu>

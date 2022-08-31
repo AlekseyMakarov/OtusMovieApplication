@@ -22,4 +22,9 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_quit">Exit</string>
     <string name="share_text_activity_movie_details">"Hey, let's watch the movie "</string>
+    <string name="navigation_drawer_open">drawer open</string>
+    <string name="navigation_drawer_close">drawer close</string>
+    <string name="title_movies">Movies</string>
+    <string name="details">Details</string>
+    <string name="favorite_movies">Favorite movies</string>
 </resources>

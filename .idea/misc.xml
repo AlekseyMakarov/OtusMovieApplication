@@ -7,7 +7,13 @@
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/activity_movie_details.xml" value="0.15715579710144928" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/bottomsheet_movie_details.xml" value="0.15715579710144928" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/fragment_movies_list.xml" value="0.15715579710144928" />
         <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/movie_item.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/layout/view_toolbar.xml" value="0.15715579710144928" />
+        <entry key="..\:/Users/Aleksey/AndroidStudioProjects/OtusAlekseyMakarovMovies/app/src/main/res/menu/activity_main_drawer.xml" value="0.23854166666666668" />
       </map>
     </option>
   </component>
