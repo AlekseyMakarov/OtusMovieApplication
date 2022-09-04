@@ -21,9 +21,9 @@ object RecyclerDecorationPortrait : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        val parent_adapter = parent.adapter
+        val parentAdapter = parent.adapter
         val itemPosition = parent.getChildAdapterPosition(view)
-        if (parent_adapter != null) {
+        if (parentAdapter != null) {
             outRect.set(
                 if (itemPosition % 2 == 0) parent.dpToPx(MARGIN_LEFT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
@@ -32,11 +32,11 @@ object RecyclerDecorationPortrait : RecyclerView.ItemDecoration() {
                 if (itemPosition % 2 == 1) parent.dpToPx(MARGIN_RIGHT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
                 ),
-                when (parent_adapter.itemCount % 2) {
-                    0 -> if (itemPosition == parent_adapter.itemCount - 1 || itemPosition == parent_adapter.itemCount - 2) parent.dpToPx(
+                when (parentAdapter.itemCount % 2) {
+                    0 -> if (itemPosition == parentAdapter.itemCount - 1 || itemPosition == parentAdapter.itemCount - 2) parent.dpToPx(
                         MARGIN_BOTTOM
                     ) else parent.dpToPx(NO_MARGIN)
-                    1 -> if (itemPosition == parent_adapter.itemCount - 1) parent.dpToPx(
+                    1 -> if (itemPosition == parentAdapter.itemCount - 1) parent.dpToPx(
                         MARGIN_BOTTOM
                     ) else parent.dpToPx(NO_MARGIN)
                     else -> parent.dpToPx(NO_MARGIN)
@@ -57,9 +57,9 @@ object RecyclerDecorationLandscape : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        val parent_adapter = parent.adapter
+        val parentAdapter = parent.adapter
         val itemPosition = parent.getChildAdapterPosition(view)
-        if (parent_adapter != null) {
+        if (parentAdapter != null) {
             outRect.set(
                 if (itemPosition % 3 == 0) parent.dpToPx(MARGIN_LEFT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
@@ -68,11 +68,11 @@ object RecyclerDecorationLandscape : RecyclerView.ItemDecoration() {
                 if (itemPosition % 3 == 2) parent.dpToPx(MARGIN_RIGHT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
                 ),
-                when (parent_adapter.itemCount % 3) {
-                    0 -> if (itemPosition == parent_adapter.itemCount - 1 || itemPosition == parent_adapter.itemCount - 2 || itemPosition == parent_adapter.itemCount - 3) parent.dpToPx(
+                when (parentAdapter.itemCount % 3) {
+                    0 -> if (itemPosition == parentAdapter.itemCount - 1 || itemPosition == parentAdapter.itemCount - 2 || itemPosition == parentAdapter.itemCount - 3) parent.dpToPx(
                         MARGIN_BOTTOM
                     ) else parent.dpToPx(NO_MARGIN)
-                    in listOf(1, 2) -> if (itemPosition in listOf(parent_adapter.itemCount - 1, parent_adapter.itemCount - 2)) parent.dpToPx(
+                    in listOf(1, 2) -> if (itemPosition in listOf(parentAdapter.itemCount - 1, parentAdapter.itemCount - 2)) parent.dpToPx(
                         MARGIN_BOTTOM
                     ) else parent.dpToPx(NO_MARGIN)
                     else -> parent.dpToPx(NO_MARGIN)

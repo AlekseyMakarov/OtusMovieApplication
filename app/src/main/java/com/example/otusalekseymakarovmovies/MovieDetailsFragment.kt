@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import coil.load
 import coil.transform.BlurTransformation
@@ -24,7 +23,7 @@ class MovieDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.activity_movie_details, container, false)
+        val root = inflater.inflate(R.layout.fragment_movie_details, container, false)
         if (scaledRatingDrawable == null) {
             scaledRatingDrawable = createScaledRatingDrawable(requireContext())
         }

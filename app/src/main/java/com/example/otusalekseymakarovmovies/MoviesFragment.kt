@@ -36,10 +36,6 @@ class MoviesFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_movies_list, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_home)
-//        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
 
         listView = root.findViewById(R.id.ListViewMovies)
         val moviesListAdapter =
@@ -57,11 +53,6 @@ class MoviesFragment: Fragment() {
                 else -> throw Exception("Can not get orientation")
             }
         )
-        findFavoriteFAB()?.setOnClickListener {
-//            startActivity(
-//                Intent(this, FavoriteMoviesActivity::class.java)
-//            )
-        }
 
         Log.i(this.javaClass.name, "onCreateView")
         return root
@@ -127,25 +118,9 @@ class MoviesFragment: Fragment() {
         Log.i(this.javaClass.name, "onStop")
     }
 
-    private fun findFavoriteFAB(): FloatingActionButton? = view?.findViewById(R.id.fab)
 
 
     fun showDetails(movieDto: MovieDto, selectedItem: Int) {
-//        startActivity(
-//            Intent(this, MovieDetails::class.java)
-//                .putExtra("Description", movieDto.description)
-//                .putExtra("ImageUrl", movieDto.imageUrl)
-//                .putExtra("Title", movieDto.title)
-//                .putExtra("AgeRestriction", movieDto.ageRestriction)
-//                .putExtra("RateScore", movieDto.rateScore)
-//        )
-
-//        parentFragmentManager.beginTransaction()
-//            .setReorderingAllowed(true)
-//            .addToBackStack("home")
-//            .replace(R.id.fragment, MovieDetailsFragment.newInstance(movieDto), "")
-//            .commit()
-//        val bundle = bundleOf(USERNAME_KEY to myDataset[position])
         val args = Bundle()
         args.putString(MovieDetailsFragment.DESCRIPTION_ARG, movieDto.description)
         args.putString(MovieDetailsFragment.TITLE_ARG, movieDto.title)
@@ -153,15 +128,6 @@ class MoviesFragment: Fragment() {
         args.putInt(MovieDetailsFragment.AGE_RESTRICTION_ARG, movieDto.ageRestriction)
         args.putString(MovieDetailsFragment.IMAGE_URL_ARG, movieDto.imageUrl)
         findNavController().navigate(R.id.action_movies_list_to_details, args)
-
-
-
-
-//        holder.item.findNavController().navigate(
-//            R.id.action_leaderboard_to_userProfile,
-//            bundle)
-
-
 
         MoviesList.movies[selectedItem] = MoviesList.movies[selectedItem].run {
             MovieDto(

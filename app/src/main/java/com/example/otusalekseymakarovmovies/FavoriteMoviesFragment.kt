@@ -22,11 +22,6 @@ class FavoriteMoviesFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
     val root = inflater.inflate(R.layout.fragment_movies_list, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_home)
-//        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
-
         listView = root.findViewById(R.id.ListViewMovies)
         val moviesListAdapter =
             MoviesListAdapter(::showDetails, moviesListActivity, ::addToFavorite)
@@ -53,11 +48,8 @@ class FavoriteMoviesFragment: Fragment() {
                 else -> throw Exception("Can not get orientation")
             }
         )
-        findFavoriteFAB()?.visibility = View.GONE
     return root
 }
-    private fun findFavoriteFAB(): FloatingActionButton? =
-        view?.findViewById(R.id.fab)
 
     private fun addToFavorite(selectedItem: Int) {
         val buf = moviesListActivity[selectedItem]
