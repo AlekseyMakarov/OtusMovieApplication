@@ -9,6 +9,7 @@ import com.example.otusalekseymakarovmovies.extensions.dpToPx
 const val MARGIN_LEFT = 20f
 const val MARGIN_RIGHT = 20f
 const val MARGIN_TOP = 50f
+const val MARGIN_TOP_FIRST = 10f
 const val MARGIN_BOTTOM = 16f
 const val MARGIN_HORIZONTAL_BETWEEN = 10f
 const val NO_MARGIN = 0f
@@ -28,7 +29,7 @@ object RecyclerDecorationPortrait : RecyclerView.ItemDecoration() {
                 if (itemPosition % 2 == 0) parent.dpToPx(MARGIN_LEFT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
                 ),
-                if (itemPosition < 2) parent.dpToPx(NO_MARGIN) else parent.dpToPx(MARGIN_TOP),
+                if (itemPosition < 2) parent.dpToPx(MARGIN_TOP_FIRST) else parent.dpToPx(MARGIN_TOP),
                 if (itemPosition % 2 == 1) parent.dpToPx(MARGIN_RIGHT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
                 ),
@@ -64,7 +65,7 @@ object RecyclerDecorationLandscape : RecyclerView.ItemDecoration() {
                 if (itemPosition % 3 == 0) parent.dpToPx(MARGIN_LEFT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
                 ),
-                if (itemPosition < 3) parent.dpToPx(NO_MARGIN) else parent.dpToPx(MARGIN_TOP),
+                if (itemPosition < 3) parent.dpToPx(MARGIN_TOP_FIRST) else parent.dpToPx(MARGIN_TOP),
                 if (itemPosition % 3 == 2) parent.dpToPx(MARGIN_RIGHT) else parent.dpToPx(
                     MARGIN_HORIZONTAL_BETWEEN
                 ),

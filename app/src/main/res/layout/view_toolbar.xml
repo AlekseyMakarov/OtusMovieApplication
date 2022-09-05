@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<com.google.android.material.appbar.CollapsingToolbarLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    app:contentScrim="?attr/colorPrimary"-->
+<!--    app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+<!--    app:toolbarId="@id/toolbar">-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--            <ImageView-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+
+<!--                android:src="@drawable/android"-->
+<!--                android:visibility="visible"-->
+<!--                app:layout_collapseMode="parallax" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--&lt;!&ndash;    <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:adjustViewBounds="true"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:src="@drawable/android"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:visibility="visible"&ndash;&gt;-->
+<!--&lt;!&ndash;        app:layout_collapseMode="parallax" />&ndash;&gt;-->
+<!--<androidx.appcompat.widget.Toolbar-->
+
+<!--    android:id="@+id/toolbar"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="?attr/actionBarSize"-->
+<!--    app:layout_collapseMode="pin"-->
+<!--    app:popupTheme="@style/Theme.OtusAlekseyMakarovMovies.PopupOverlay"/>-->
+<!--    </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    app:popupTheme="@style/Theme.OtusAlekseyMakarovMovies.PopupOverlay"/>
+
+android:id="@+id/toolbar"
+android:layout_width="match_parent"
+android:layout_height="?attr/actionBarSize"
+app:layout_collapseMode="pin"
+app:popupTheme="@style/Theme.OtusAlekseyMakarovMovies.PopupOverlay"/>
+

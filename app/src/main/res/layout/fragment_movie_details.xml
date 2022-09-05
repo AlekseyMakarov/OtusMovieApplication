@@ -4,7 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
+        app:expanded="false"
+        android:theme="@style/Theme.OtusAlekseyMakarovMovies.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@id/toolbar_details">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:src="@drawable/android"
+                    android:visibility="visible"
+                    app:layout_collapseMode="parallax" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    <ImageView-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:adjustViewBounds="true"-->
+            <!--        android:src="@drawable/android"-->
+            <!--        android:visibility="visible"-->
+            <!--        app:layout_collapseMode="parallax" />-->
+            <androidx.appcompat.widget.Toolbar
+
+                android:id="@+id/toolbar_details"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/Theme.OtusAlekseyMakarovMovies.PopupOverlay"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
     <ImageView
         android:id="@+id/movie_details_background"
         android:layout_width="match_parent"

@@ -51,10 +51,29 @@ class MainActivity : AppCompatActivity() {
             setOf(R.id.movies_favorite_fragment, R.id.movies_screen),
             drawerLayout
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
+    }
+
+    fun setupActionBar(toolbar: Toolbar) {
+//        supportActionBar?.hide()
+
+//        setSupportActionBar(toolbar)
+
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+
+
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//
+//        navController = navHostFragment.navController
+//
+//        setupActionBarWithNavController(navController)
+
     }
 }

@@ -58,6 +58,7 @@ class MovieDetailsFragment : Fragment() {
                     )
             )
         }
+        (requireActivity() as MainActivity).setupActionBar(root.findViewById(R.id.toolbar_details))
         return root
     }
 
