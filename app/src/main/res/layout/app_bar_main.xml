@@ -8,10 +8,10 @@
 
 
 
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/view_app_bar"
-        />
+<!--    <include-->
+<!--        android:id="@+id/app_bar"-->
+<!--        layout="@layout/view_app_bar"-->
+<!--        />-->
     <include layout="@layout/content_main"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"

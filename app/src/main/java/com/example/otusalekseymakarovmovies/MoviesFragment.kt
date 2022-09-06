@@ -10,15 +10,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.drawerlayout.widget.DrawerLayout
 
 class MoviesFragment: Fragment() {
     lateinit var listView: RecyclerView
@@ -55,6 +59,14 @@ class MoviesFragment: Fragment() {
         )
 
         Log.i(this.javaClass.name, "onCreateView")
+        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+        val toolbar = root.findViewById<Toolbar>(R.id.toolbar)
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.movies_favorite_fragment, R.id.movies_screen),
+            drawerLayout
+        )
+        toolbar.setupWithNavController(navController, appBarConfiguration)
         return root
     }
 

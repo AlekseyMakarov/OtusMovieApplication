@@ -7,7 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
@@ -48,6 +53,14 @@ class FavoriteMoviesFragment: Fragment() {
                 else -> throw Exception("Can not get orientation")
             }
         )
+        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+        val toolbar = root.findViewById<Toolbar>(R.id.toolbar)
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.movies_favorite_fragment, R.id.movies_screen),
+            drawerLayout
+        )
+        toolbar.setupWithNavController(navController, appBarConfiguration)
     return root
 }
 
