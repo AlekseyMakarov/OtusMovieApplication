@@ -4,10 +4,7 @@
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
-    app:expanded="false"
     android:theme="@style/Theme.OtusAlekseyMakarovMovies.AppBarOverlay">
-
     <include layout="@layout/view_toolbar" />
 
 </com.google.android.material.appbar.AppBarLayout>
