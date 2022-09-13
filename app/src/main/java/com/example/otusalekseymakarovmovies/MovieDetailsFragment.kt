@@ -31,11 +31,11 @@ class MovieDetailsFragment : Fragment() {
         val args = requireArguments()
 
         val imageUrl = args.getString(IMAGE_URL_ARG)
-        root.findViewById<ImageView>(R.id.movie_details_background)
-            .load(imageUrl) {
-                allowHardware(false)
-                transformations(BlurTransformation(requireContext(), 25f))
-            }
+//        root.findViewById<ImageView>(R.id.movie_details_background)
+//            .load(imageUrl) {
+//                allowHardware(false)
+//                transformations(BlurTransformation(requireContext(), 25f))
+//            }
         root.findViewById<TextView>(R.id.textViewMovieAgeRestrictions).text =
             args.getInt(AGE_RESTRICTION_ARG, 0).let { "+$it" }
         root.findViewById<TextView>(R.id.textViewFilmName).text = args.getString(TITLE_ARG)

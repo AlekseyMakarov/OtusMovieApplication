@@ -10,7 +10,7 @@
     app:behavior_hideable="false"
     app:behavior_peekHeight="85dp"
     android:scrollbars="vertical"
-    app:layout_behavior="@string/bottom_sheet_behavior">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
