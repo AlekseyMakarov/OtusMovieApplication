@@ -27,4 +27,6 @@
     <string name="title_movies">Movies</string>
     <string name="details">Details</string>
     <string name="favorite_movies">Favorite movies</string>
+    <string name="film_added_to_favourite">The movie has been successfully added to favorite</string>
+    <string name="film_removed_from_favorite">The movie successfully removed from favorites</string>
 </resources>

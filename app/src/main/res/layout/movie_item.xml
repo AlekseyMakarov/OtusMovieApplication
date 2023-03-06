@@ -91,11 +91,10 @@
         <RatingBar
             android:id="@+id/ratingBarMovieRating"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="15dp"
             android:clickable="false"
             android:isIndicator="true"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
+
             android:numStars="5"
             android:progressDrawable="@null"
             android:rating="3"

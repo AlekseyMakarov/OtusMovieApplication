@@ -31,4 +31,9 @@
             android:id="@+id/action_favorite_movies_to_details"
             app:destination="@id/details_fragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="com.example.otusalekseymakarovmovies.MovieDetailsFragment"
+        android:label="@string/details"
+        tools:layout="@layout/activity_main"/>
 </navigation>

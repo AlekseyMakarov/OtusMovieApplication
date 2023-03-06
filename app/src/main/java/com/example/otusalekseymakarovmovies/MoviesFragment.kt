@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -23,9 +24,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.snackbar.Snackbar
 
 class MoviesFragment: Fragment() {
     lateinit var listView: RecyclerView
+    lateinit var snackbar: Snackbar
 
     companion object{
         const val DESCRIPTION_ARG = "description"
@@ -67,6 +70,7 @@ class MoviesFragment: Fragment() {
             drawerLayout
         )
         toolbar.setupWithNavController(navController, appBarConfiguration)
+
         return root
     }
 
@@ -170,6 +174,7 @@ class MoviesFragment: Fragment() {
             }
             listView.adapter?.notifyItemChanged(previousSelectedItem)
         }
+
     }
 
     fun addToFavorite(selectedItem: Int) {
@@ -185,5 +190,43 @@ class MoviesFragment: Fragment() {
             )
         }
         listView.adapter?.notifyItemChanged(selectedItem)
+
+        fun showSnackbar(){
+            view?.let {
+                snackbar = Snackbar.make(it,
+                    if(MoviesList.movies[selectedItem].favourite)R.string.film_added_to_favourite
+                    else R.string.film_removed_from_favorite,
+                    Snackbar.LENGTH_SHORT)
+                    .setAction(R.string.dialog_cancel) {
+                        addToFavorite(selectedItem)
+                    }
+
+                snackbar.show()
+            }
+        }
+        if(!::snackbar.isInitialized)
+        {
+            showSnackbar()
+//            view?.let {
+//                snackbar = Snackbar.make(it, R.string.actors_string, Snackbar.LENGTH_SHORT)
+//                    .setAction("Отменить") {
+//                        addToFavorite(selectedItem)
+//                    }
+//                snackbar.show()
+//            }
+        }
+        else{
+            if (!snackbar.isShown){
+                showSnackbar()
+//                view?.let {
+//                    snackbar = Snackbar.make(it, R.string.actors_string, Snackbar.LENGTH_SHORT)
+//                        .setAction("Отменить") {
+//                            addToFavorite(selectedItem)
+//                        }
+//                }
+//                snackbar.show()
+            }
+        }
+
     }
 }

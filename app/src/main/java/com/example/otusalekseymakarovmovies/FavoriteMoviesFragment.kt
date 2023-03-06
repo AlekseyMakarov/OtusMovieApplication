@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otusalekseymakarovmovies.data.dto.MovieDto
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 class FavoriteMoviesFragment: Fragment() {
     lateinit var listView: RecyclerView
+    lateinit var snackbar: Snackbar
     private val moviesListActivity = MoviesList.movies.filter { it.favourite }.toMutableList()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +70,7 @@ class FavoriteMoviesFragment: Fragment() {
         val buf = moviesListActivity[selectedItem]
         val indexMovie = MoviesList.movies.withIndex().find { it.value == buf }?.index
 
+
         if (indexMovie != null) {
             MoviesList.movies[indexMovie] = MoviesList.movies[indexMovie].run {
                 MovieDto(
@@ -79,6 +82,7 @@ class FavoriteMoviesFragment: Fragment() {
                     selected,
                     !favourite
                 )
+
             }
             when (MoviesList.movies[indexMovie].favourite) {
                 true -> {
@@ -90,6 +94,55 @@ class FavoriteMoviesFragment: Fragment() {
                 false -> {
                     moviesListActivity.remove(buf)
                     listView.adapter?.notifyItemRemoved(selectedItem)
+                }
+
+            }
+            fun showSnackbar(){
+                view?.let {
+                    if(!MoviesList.movies[indexMovie].favourite){
+                        snackbar = Snackbar.make(it,
+                            R.string.film_removed_from_favorite,
+                            Snackbar.LENGTH_SHORT)
+                            .setAction(R.string.dialog_cancel) {
+                                moviesListActivity.add(selectedItem, buf)
+                                MoviesList.movies[indexMovie] = MoviesList.movies[indexMovie].run {
+                                    MovieDto(
+                                        title,
+                                        description,
+                                        rateScore,
+                                        ageRestriction,
+                                        imageUrl,
+                                        selected,
+                                        !favourite
+                                    )
+                                }
+                                listView.adapter?.notifyItemInserted(selectedItem)
+                            }
+                        snackbar.show()
+
+                    }
+//                    else {
+//
+//                        snackbar = Snackbar.make(it,
+//                            R.string.film_removed_from_favorite,
+//                            Snackbar.LENGTH_SHORT)
+//                            .setAction(R.string.dialog_cancel) {
+//
+//                            }
+//                        snackbar.show()
+//                    }
+
+            }
+
+        }
+
+            if(!::snackbar.isInitialized)
+            {
+                showSnackbar()
+            }
+            else{
+                if (!snackbar.isShown){
+                    showSnackbar()
                 }
             }
         }
@@ -106,6 +159,14 @@ class FavoriteMoviesFragment: Fragment() {
 //                .putExtra("AgeRestriction", movieDto.ageRestriction)
 //                .putExtra("RateScore", movieDto.rateScore)
 //        )
+        val args = Bundle()
+        args.putString(MovieDetailsFragment.DESCRIPTION_ARG, movieDto.description)
+        args.putString(MovieDetailsFragment.TITLE_ARG, movieDto.title)
+        args.putInt(MovieDetailsFragment.RATING_ARG, movieDto.rateScore)
+        args.putInt(MovieDetailsFragment.AGE_RESTRICTION_ARG, movieDto.ageRestriction)
+        args.putString(MovieDetailsFragment.IMAGE_URL_ARG, movieDto.imageUrl)
+        findNavController().navigate(R.id.action_favorite_movies_to_details, args)
+
         selectedInMain?.let {
             selectInMainActivity(it)
 

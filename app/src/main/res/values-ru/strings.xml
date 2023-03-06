@@ -23,5 +23,7 @@
     <string name="dialog_OK">ОК</string>
     <string name="dialog_quit">Выйти</string>
     <string name="share_text_activity_movie_details">"Привет, давай посмотрим фильм "</string>
+    <string name="film_added_to_favourite">Фильм успешно добавлен в Избранные</string>
+    <string name="film_removed_from_favorite">Фильм успешно удален из Избранных</string>
 
 </resources>
